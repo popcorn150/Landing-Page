@@ -84,5 +84,5 @@ export default function LandingPage() {
         {status && <p className="text-sm text-gray-400 mt-2">{status}</p>}
       </div>
     </main>
-  )
+  );
 }
