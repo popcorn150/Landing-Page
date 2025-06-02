@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { Toaster, toast} from "sonner";
 
 const INTEREST = [
   { label: "Alpha Routine", value: "alpha" },
@@ -7,17 +8,23 @@ const INTEREST = [
   { label: "Both", value: "both" },
 ];
 
+const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
+
 export default function LandingPage() {
   const [selected, setSelected] = useState("alpha");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(null);
 
   const handleSubmit = async () => {
-    if (!email) return setStatus("Please enter your email.");
+    if (!email) {
+      toast.error("Please enter your email.");
+      return;
+    }
 
     setStatus("Sending...");
     try {
-      const res = await fetch("api/subscribe", {
+      console.log("BACKEND:", BACKEND);
+      const res = await fetch(`${BACKEND}/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,22 +32,33 @@ export default function LandingPage() {
         body: JSON.stringify({ email, interest: selected }),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (jsonError) {
+        console.warn("No JSON in response:", jsonError);
+        data = {};
+      }
+
       if (res.ok) {
-        setStatus("Success! Check your inbox.");
+        toast.success("You're in! Check your inbox.");
         setEmail("");
+        setStatus("Success");
       } else {
-        setStatus(data.message || "Something went wrong.");
+        toast.error(data.message || "Something went wrong.");
+        setStatus("Failed");
       }
     } catch (error) {
-      console.error("Error sending email:", error);
-      setStatus("Error sending email.");
+      console.error("Frontend fetch error:", error);
+      toast.error("Server error. Try again later.");
+      setStatus("Error");
     }
   };
 
 
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center p-4">
+      <Toaster richColors position="top-center" />
       <div className="max-w-lg w-full text-center space-y-6">
         <img
           src="/BareBones Studio.jpg"
@@ -74,7 +92,8 @@ export default function LandingPage() {
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="text-black w-full px-4 py-2 rounded-md"
+            className="text-gray-500 w-full px-4 py-2 rounded-md border-2 border-gray-700 focus:outline-none focus:border-white transition-all duration-200"
+            required
           />
           <button onClick={handleSubmit} className="w-full bg-white text-black hover:bg-gray-200 hover:cursor-pointer font-semibold py-2 px-4 rounded-md">
             Subscribe
