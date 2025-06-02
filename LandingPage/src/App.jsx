@@ -8,7 +8,7 @@ const INTEREST = [
   { label: "Both", value: "both" },
 ];
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
+const BACKEND = import.meta.env.VITE_BACKEND_URL;
 
 export default function LandingPage() {
   const [selected, setSelected] = useState("alpha");
