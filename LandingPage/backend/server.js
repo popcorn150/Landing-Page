@@ -11,19 +11,20 @@ console.log("MAIL_USER is:", process.env.MAIL_USER);
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const corsOptions = {
-    origin: "https://barebonesnewsletter.vercel.app",
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
 const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_KEY
 );
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://barebonesnewsletter.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.sendStatus(200);
+  next();
+});
+
+app.use(express.json());
 
 app.post("/subscribe", async (req, res) => {
     console.log("📩 Incoming POST /subscribe with:", req.body);
@@ -77,10 +78,6 @@ app.post("/subscribe", async (req, res) => {
         console.error("Email error:", error);
         res.status(500).json({ message: "Failed to send email." });
     }
-});
-
-app.get("/", (req, res) => {
-    res.send("🚀 BareBones Studio Backend is Live!");
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
