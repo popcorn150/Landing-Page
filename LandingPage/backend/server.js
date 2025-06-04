@@ -11,7 +11,12 @@ console.log("MAIL_USER is:", process.env.MAIL_USER);
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(cors({
+    origin: [ 
+    "http://localhost:5173",
+    "https://barebonesnewsletter.vercel.app"
+  ]
+}));
 app.use(express.json());
 
 const supabase = createClient(
