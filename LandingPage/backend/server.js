@@ -12,10 +12,10 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(cors({
-    origin: [ 
-    "http://localhost:5173",
-    "https://barebonesnewsletter.vercel.app"
-  ]
+    origin: "https://barebonesnewsletter.vercel.app",
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+    credentials: false
 }));
 app.use(express.json());
 
@@ -27,6 +27,9 @@ const supabase = createClient(
 app.get("/", (req, res) => {
     res.send("🚀 BareBones Studio Backend is Live!");
 });
+
+app.options("/subscribe", cors());
+app.options("*", cors());
 
 app.post("/subscribe", async (req, res) => {
     console.log("📩 Incoming POST /subscribe with:", req.body);
