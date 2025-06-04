@@ -24,7 +24,7 @@ export default function LandingPage() {
     setStatus("Sending...");
     try {
       console.log("BACKEND:", BACKEND);
-      const res = await fetch(`${BACKEND}/subscribe`, {
+      const res = await fetch(`${BACKEND.replace(/\/$/, "")}/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
