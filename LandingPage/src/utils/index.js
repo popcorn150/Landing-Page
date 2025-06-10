@@ -18,7 +18,7 @@ import LabubuImg from '../imgs/labubuImg.png';
 import WLabubuImg from '../imgs/w-labubu.png';
 import TitleImg from '../imgs/title.png';
 import MainTitleImg from '../imgs/mainTitle.png';
-import FooterLabubu from '../imgs/footerLabubu.png';
+import FooterLabubu from '../imgs/footerlabubu.png';
 import HowTo from '../imgs/howtolabubu.png';
 import WhoWeAre from '../imgs/whoweare.png';
 import WhoWeLabubu from '../imgs/whowelabubu.png';
