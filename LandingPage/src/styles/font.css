@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'BeachDay';
+    src: url('../assets//beachday/beachday.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.exchanges {
+    font-family: 'BeachDay', sans-serif;
+    color: #333;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.steps {
+    font-family: 'BeachDay', sans-serif;
+    color: #8C4DA3;
+    text-align: center;
+}
+
+.tokenomics {
+    font-family: 'BeachDay', sans-serif;
+    font-size: 1.5rem;
+    color: #8C4DA3;
+    text-align: center;
+}
+
+.supply-rate {
+    font-family: 'BeachDay', sans-serif;
+    color: #1E1E1E;
+    text-align: center;
+}
