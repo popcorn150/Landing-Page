@@ -1,107 +1,127 @@
-import { useState } from "react";
-import { Check } from "lucide-react";
-import { Toaster, toast} from "sonner";
+import { exchanges, steps } from "./data/data";
 
-const INTEREST = [
-  { label: "Alpha Routine", value: "alpha" },
-  { label: "Ghost Project", value: "ghost" },
-  { label: "Both", value: "both" },
-];
-
-const BACKEND = import.meta.env.VITE_BACKEND_URL;
-
-export default function LandingPage() {
-  const [selected, setSelected] = useState("alpha");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(null);
-
-  const handleSubmit = async () => {
-    if (!email) {
-      toast.error("Please enter your email.");
-      return;
-    }
-
-    setStatus("Sending...");
-    try {
-      console.log("BACKEND:", BACKEND);
-      const res = await fetch(`${BACKEND.replace(/\/$/, "")}/subscribe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, interest: selected }),
-      });
-
-      let data;
-      try {
-        data = await res.json();
-      } catch (jsonError) {
-        console.warn("No JSON in response:", jsonError);
-        data = {};
-      }
-
-      if (res.ok) {
-        toast.success("You're in! Check your inbox.");
-        setEmail("");
-        setStatus("Success");
-      } else {
-        toast.error(data.message || "Something went wrong.");
-        setStatus("Failed");
-      }
-    } catch (error) {
-      console.error("Frontend fetch error:", error);
-      toast.error("Server error. Try again later.");
-      setStatus("Error");
-    }
-  };
-
-
+export default function App() {
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center p-4">
-      <Toaster richColors position="top-center" />
-      <div className="max-w-lg w-full text-center space-y-6">
-        <img
-          src="/BareBones Studio.jpg"
-          alt="BareBones Studio Logo"
-          className="mx-auto mb-4 w-24 h-24 border-2 border-gray-500 rounded-full object-cover"
-        />
-        <h1 className="text-3xl font-bold">
-          Join BareBones Studio Newsletter
-        </h1>
-        <p className="text-gray-400">
-          Choose your focus & get the first drop.
-        </p>
+    <div style={{ backgroundImage: 'url(./public/background.png)' }} className="bg-cover bg-center min-h-screen">
+      {/* Main Container */}
+      <div className="text-black mx-15 font-sans">
+        {/* Navbar */}
+        <header className="flex justify-between items-center px-6 py-4">
+          <img src="/public/title.png" alt="LABUBU" className="hover:cursor-pointer" />
+          <nav className="space-x-20 text-sm md:text-base">
+            <a href="#" className="hover:text-pink-300 hover:cursor-pointer text-[#742561]">What is a Labubu?</a>
+            <a href="#" className="hover:text-pink-300 hover:cursor-pointer text-[#742561]">About Us</a>
+            <a href="#" className="hover:text-pink-300 hover:cursor-pointer text-[#742561]">How to $LABUBU</a>
+            <a href="#" className="hover:text-pink-300 hover:cursor-pointer text-[#742561]">Tokenomics</a>
+          </nav>
+        </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {INTEREST.map((item) => (
-            <button
-              key={item.value}
-              onClick={() => setSelected(item.value)}
-              className={`rounded-2xl p-4 border-2 hover:cursor-pointer transition-all duration-200 flex flex-col items-center justify-center text-sm font-medium
-              ${selected === item.value ? "border-white bg-white text-black" : "border-gray-700 bg-gray-900 hover:border-white"}`}
-            >
-              {selected === item.value && <Check className="mb-2" />}
-              {item.label}
-            </button>
-          ))}
-        </div>
+        {/* Hero Section */}
+        <section className="text-center py-12 px-4">
+          <img src="/public/mainTitle.png" alt="LABUBU" className="mx-auto w-xl md:w-lg drop-shadow-md" />
+          <p className="text-xl font-light text-[#83296D] tracking-widest mt-2 mb-6">
+            the original fan token on solana
+          </p>
+          <div className="flex justify-center space-x-4 mb-4">
+            <button className="bg-[#FB89E1] hover:bg-pink-600 hover:text-white hover:cursor-pointer text-[#4F1C42] font-semibold text-base py-2 px-20 rounded-full">View Chart</button>
+            <button className="bg-blue-500 hover:bg-blue-600 hover:text-[#4F1C42] hover:cursor-pointer text-white font-semibold py-2 px-15 rounded-full">Join Community</button>
+          </div>
+          <p className="text-sm text-white bg-black rounded-full inline-block px-20 py-2 mt-2">
+            JB2wozZLdzVfnaCFHxLg93R5Rh5iTH7ixEDWJQ0pump
+          </p>
+          <div className="">
+            {/* Hero Image Placeholder */}
+            <img src="/public/doll-1.png" alt="Doll-1" className="w-[400px] h-[400px] mx-auto" />
+          </div>
+        </section>
 
-        <div className="space-y-2">
-          <input
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="text-gray-500 w-full px-4 py-2 rounded-md border-2 border-gray-700 focus:outline-none focus:border-white transition-all duration-200"
-            required
-          />
-          <button onClick={handleSubmit} className="w-full bg-white text-black hover:bg-gray-200 hover:cursor-pointer font-semibold py-2 px-4 rounded-md">
-            Subscribe
-          </button>
-        </div>
+        {/* Exchanges */}
+        <section className="text-center px-4 mt-12">
+          <h2 className="font-bold text-xl mb-4">EXCHANGES WE ARE ON</h2>
+          <div className="mx-10 flex flex-wrap justify-center gap-10">
+            {exchanges.map(({ id, name, img }) => (
+              <img key={id} src={img} alt={name} className="w-40 h-20 object-contain" />
+            ))}
+          </div>
+        </section>
 
-        {status && <p className="text-sm text-gray-400 mt-2">{status}</p>}
+        {/* What is a Labubu */}
+        <section className="mt-16 px-6 flex flex-wrap justify-between items-center">
+          <div className="mb-4">
+            <img src="/public/labubuImg.png" className="w-xs" />
+          </div>
+          <div className="flex flex-end">
+            <img src="/public/w-labubu.png" alt="What is Labubu?" className="w-sm mb-4" />
+            <p className="max-w-md mx-auto text-start text-sm">
+              Labubu is a character in a series of stories called "The Monsters" by Hong-Kong born artist Kasing Lung. Inspired by Nordic fairy tales, he created this universe in 2015...
+            </p>
+          </div>
+        </section>
+
+        {/* Who We Are */}
+        <section className="mt-16 px-6 flex flex-wrap justify-between items-center">
+          <img src="/public/whoweare.png" alt="Who We Are" className="w-sm mb-4" />
+          <p className="max-w-md mx-auto text-start text-sm">
+            Labubu is a character in a series of stories called "The Monsters" by Hong-Kong born artist Kasing Lung...
+          </p>
+          <div className="mb-4">
+            <img src="/public/whowelabubu.png" alt="Who we are" className="w-sm mb-4" />
+          </div>
+        </section>
+
+        {/* How to $LABUBU */}
+        <section className="mt-20 px-6 text-center">
+          <img src="/public/howtolabubu.png" alt="How To $Labubu" className="w-md mx-auto" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {steps.map(({ id, title, description, icon }) => (
+              <div key={id} alt={title} className="bg-white/20 rounded-2xl p-4 text-center">
+                <img src={icon} alt={title} className="w-16 h-16 mx-auto mb-2" />
+                <p className="text-sm">{title}</p>
+                <p className="text-xs">{description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Tokenomics */}
+        <section className="mt-20 px-6 text-center">
+          <img src="/public/token.png" alt="How To $Labubu" className="w-md mx-auto mb-5" />
+          <div className="flex flex-col md:flex-row justify-center gap-6 text-center mb-4">
+            <div className="bg-white border-3 border-[#8C4DA3] px-10 py-4 rounded-xl drop-shadow-md">0%<br />Fees</div>
+            <div className="bg-white border-3 border-[#8C4DA3] px-10 py-4 rounded-xl drop-shadow-md">100%<br />Community</div>
+            <div className="bg-white border-3 border-[#8C4DA3] px-10 py-4 rounded-xl drop-shadow-md">LP<br />Locked</div>
+          </div>
+          <p className="text-xl font-bold">SUPPLY:<br />1,000,000,000</p>
+        </section>
+
+        {/* Join Us */}
+        <section className="mt-20 px-6 text-center">
+          <img src="/public/joinus.png" alt="Join Us" className="w-2xs mx-auto mb-10" />
+          <div className="flex justify-center space-x-4">
+            <button className="bg-[#1DA1F2] text-white font-normal px-10 py-3 rounded-full">Twitter</button>
+            <button className="bg-[#4267B2] text-white font-normal px-10 py-3 rounded-full">Facebook</button>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="mt-30 text-center text-xs py-6">
+          <img src="/public/footerlabubu.png" alt="Labubu" className="w-xs mx-auto" />
+          <nav className="space-x-10 my-5 text-sm md:text-base">
+            <a href="#" className="hover:cursor-pointer text-[#1E0E62]">Portfolio?</a>
+            <a href="#" className="hover:cursor-pointer text-[#1E0E62]">How it Works</a>
+            <a href="#" className="hover:cursor-pointer text-[#1E0E62]">Pricing</a>
+            <a href="#" className="hover:cursor-pointer text-[#1E0E62]">About</a>
+            <a href="#" className="hover:cursor-pointer text-[#1E0E62]">Contacts</a>
+          </nav>
+          <p className="text-gray-600 text-sm max-w-2xl mx-auto">
+            This meme coin is not affiliated with, endorsed by, or associated with the official Labubu brand,
+            Popmart company, or any of its representatives. This project is purely for entertainment purposes
+            and does not claim any rights or connections to Popmart or its intellectual property. Please do
+            your own research before participating, and remember that meme coins are highly speculative and
+            volatile assets.
+          </p>
+        </footer>
       </div>
-    </main>
+    </div>
   );
 }
