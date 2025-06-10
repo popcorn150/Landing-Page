@@ -3,7 +3,7 @@ import { Background, Doll, FooterLabubuIcon, HowToLabubu, JoinUsIcon, LabubuIcon
 
 export default function App() {
   return (
-    <div style={{ backgroundImage: 'url(../src/imgs/background.png)' }} className="bg-cover bg-center min-h-screen">
+    <div className="bg-[url(../src/imgs/background.png)] bg-cover bg-center min-h-screen">
       {/* Main Container */}
       <div className="text-black mx-15 font-sans">
         {/* Navbar */}
