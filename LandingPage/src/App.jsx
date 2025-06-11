@@ -37,7 +37,7 @@ export default function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative text-center py-20 px-4 max-w-screen-xl mx-auto">
+      <section className="relative text-center py-20 px-10 max-w-screen-xl mx-auto">
         <img
           src={MainTitle}
           alt="LABUBU"
@@ -47,16 +47,18 @@ export default function App() {
           the original fan token on solana
         </p>
         <div className="font-sans flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
-          <button className="bg-[#FB89E1] text-[#4F1C42] font-semibold py-2 px-10 rounded-full hover:bg-pink-600 hover:text-white">
+          <button className="bg-[#FB89E1] hover:cursor-pointer text-[#4F1C42] font-semibold py-2 px-10 rounded-full hover:bg-pink-600 hover:text-white">
             View Chart
           </button>
-          <button className="bg-blue-500 text-white font-semibold py-2 px-10 rounded-full">
+          <button className="bg-blue-500 hover:cursor-pointer text-white font-semibold py-2 px-10 rounded-full">
             Join Community
           </button>
         </div>
-        <p className="font-sans text-sm text-white bg-black rounded-full inline-block px-6 py-2 mt-2">
-          JB2wozZLdzVfnaCFHxLg93R5Rh5iTH7ixEDWJQ0pump
-        </p>
+        <div className="flex flex-col items-center">
+          <p className="font-sans text-sm hover:cursor-pointer text-white bg-black rounded-full inline-block px-6 py-2 mt-2">
+            JB2wozZLdzVfnaCFHxLg93R5Rh5iTH7ixEDWJQ0pump
+          </p>
+        </div>
         <img
           src={Doll}
           alt="Doll"
@@ -82,7 +84,7 @@ export default function App() {
       </section>
 
       {/* Content Container for What is Labubu and Who We Are */}
-      <div className="max-w-screen-xl mx-auto">
+      <div className="max-w-screen-xl mx-auto px-10">
         {/* What is Labubu */}
         <section className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8">
           <img src={LabubuIcon} alt="Labubu" className="w-40 md:w-60 z-10" />
