@@ -72,7 +72,9 @@ export default function App() {
         </div>
         <div className="flex flex-col items-center">
           <div
-            onClick={handleCopy} className="flex flex-row gap-3 hover:cursor-pointer w-auto text-white bg-black rounded-full px-6 py-2 mt-2">
+            onClick={handleCopy}
+            className="flex flex-row gap-3 hover:cursor-pointer w-auto text-white bg-black rounded-full px-6 py-2 mt-2"
+          >
             <p className="font-sans text-xs truncate max-w-[180px] md:max-w-none">
               {walletAddress}
             </p>
@@ -110,7 +112,10 @@ export default function App() {
       {/* Content Container for What is Labubu and Who We Are */}
       <div className="max-w-screen-xl mx-auto px-10">
         {/* What is Labubu */}
-        <section id="what-is" className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8">
+        <section
+          id="what-is"
+          className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8"
+        >
           <img src={LabubuIcon} alt="Labubu" className="w-40 md:w-60 z-10" />
           <div className="text-left z-10">
             <img
@@ -134,19 +139,24 @@ export default function App() {
         </section>
 
         {/* Who We Are */}
-        <section id="who-we-are" className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8">
+        <section
+          id="who-we-are"
+          className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8"
+        >
           <div className="flex flex-col items-start md:w-1/2">
             <img src={WhoWeAreIcon} alt="Who We Are" className="w-60 mb-4" />
             <p className="font-sans text-sm text-[#1E1E1E] max-w-md">
-              Labubu is a fan meme token that aims to bridge the gap between the real-world excitement
-              of its dedicated fanbase and the vibrant, innovative community of digital tokens. As ardent supporters,
-              we seek to harness the energy and enthusiasm that surrounds Labubu IRL and translate it into the digital realm.
-              By creating a community-driven token, we hope to foster a space where fans can connect, collaborate, and celebrate
-              their shared passion.
+              Labubu is a fan meme token that aims to bridge the gap between the
+              real-world excitement of its dedicated fanbase and the vibrant,
+              innovative community of digital tokens. As ardent supporters, we
+              seek to harness the energy and enthusiasm that surrounds Labubu
+              IRL and translate it into the digital realm. By creating a
+              community-driven token, we hope to foster a space where fans can
+              connect, collaborate, and celebrate their shared passion.
             </p>
             <p className="font-sans text-sm text-[#1E1E1E] max-w-md mt-4">
-              Through Labubu, we aspire to create a unique and engaging experience
-              that extends beyond simply holding a digital asset.
+              Through Labubu, we aspire to create a unique and engaging
+              experience that extends beyond simply holding a digital asset.
             </p>
           </div>
           <img
@@ -158,7 +168,10 @@ export default function App() {
       </div>
 
       {/* How to $LABUBU */}
-      <section id="how-to" className="py-12 px-6 text-center max-w-screen-xl mx-auto">
+      <section
+        id="how-to"
+        className="py-12 px-6 text-center max-w-screen-xl mx-auto"
+      >
         <img
           src={HowToLabubu}
           alt="How To $Labubu"
@@ -176,7 +189,10 @@ export default function App() {
       </section>
 
       {/* Tokenomics */}
-      <section id="tokenomics" className="py-12 px-6 text-center max-w-screen-xl mx-auto">
+      <section
+        id="tokenomics"
+        className="py-12 px-6 text-center max-w-screen-xl mx-auto"
+      >
         <img
           src={LabubuTokenIcon}
           alt="Tokenomics"
@@ -206,7 +222,7 @@ export default function App() {
       {/* Join Us */}
       <section className="py-6 px-6 text-center max-w-screen-xl mx-auto">
         <img src={JoinUsIcon} alt="Join Us" className="w-40 mx-auto mb-8" />
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <div className="flex flex-row justify-center items-center gap-4">
           <button className="bg-[#1DA1F2] text-white px-10 py-3 rounded-full hover:cursor-pointer">
             Twitter
           </button>
