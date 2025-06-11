@@ -1,4 +1,7 @@
+import React, { useState } from "react";
 import "./styles/font.css";
+import { Check, Copy } from "lucide-react";
+import { Toaster, toast } from "sonner";
 import { exchanges, steps } from "./data/data";
 import {
   Doll,
@@ -15,22 +18,35 @@ import {
 } from "./utils";
 
 export default function App() {
+  const [copied, setCopied] = useState(false);
+  const walletAddress = "JB2wozZLdzVfnaCFHxLg93R5Rh5iTH7ixEDWJQ0pump";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(walletAddress);
+    setCopied(true);
+    toast.success("Wallet address copied", {
+      position: "top-center",
+    });
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <div className="bg-[url(../src/imgs/background.png)] bg-cover bg-center min-h-screen font-sans text-black overflow-x-hidden">
+    <div className="bg-[url(../src/imgs/background.png)] bg-cover bg-center min-h-screen font-sans text-black overflow-x-hidden scroll-smooth">
+      <Toaster richColors position="top-center" />
       {/* Navbar */}
       <header className="max-w-screen-xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
         <img src={Title} alt="LABUBU" className="hover:cursor-pointer" />
         <nav className="flex flex-wrap justify-center gap-6 text-sm md:text-base text-[#742561]">
-          <a href="#" className="hover:text-pink-300">
+          <a href="#what-is" className="hover:text-pink-300">
             What is a Labubu?
           </a>
-          <a href="#" className="hover:text-pink-300">
+          <a href="#who-we-are" className="hover:text-pink-300">
             About Us
           </a>
-          <a href="#" className="hover:text-pink-300">
+          <a href="#how-to" className="hover:text-pink-300">
             How to $LABUBU
           </a>
-          <a href="#" className="hover:text-pink-300">
+          <a href="#tokenomics" className="hover:text-pink-300">
             Tokenomics
           </a>
         </nav>
@@ -55,9 +71,17 @@ export default function App() {
           </button>
         </div>
         <div className="flex flex-col items-center">
-          <p className="font-sans text-sm hover:cursor-pointer text-white bg-black rounded-full inline-block px-6 py-2 mt-2">
-            JB2wozZLdzVfnaCFHxLg93R5Rh5iTH7ixEDWJQ0pump
-          </p>
+          <div
+            onClick={handleCopy} className="flex flex-row gap-3 hover:cursor-pointer w-auto text-white bg-black rounded-full px-6 py-2 mt-2">
+            <p className="font-sans text-xs truncate max-w-[180px] md:max-w-none">
+              {walletAddress}
+            </p>
+            {copied ? (
+              <Check className="w-4 h-4 text-green-400" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
+          </div>
         </div>
         <img
           src={Doll}
@@ -86,7 +110,7 @@ export default function App() {
       {/* Content Container for What is Labubu and Who We Are */}
       <div className="max-w-screen-xl mx-auto px-10">
         {/* What is Labubu */}
-        <section className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8">
+        <section id="what-is" className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8">
           <img src={LabubuIcon} alt="Labubu" className="w-40 md:w-60 z-10" />
           <div className="text-left z-10">
             <img
@@ -110,19 +134,19 @@ export default function App() {
         </section>
 
         {/* Who We Are */}
-        <section className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8">
+        <section id="who-we-are" className="relative py-12 px-6 flex flex-col md:flex-row items-center gap-8">
           <div className="flex flex-col items-start md:w-1/2">
             <img src={WhoWeAreIcon} alt="Who We Are" className="w-60 mb-4" />
             <p className="font-sans text-sm text-[#1E1E1E] max-w-md">
-              Labubu is a character in a series of stories called "The Monsters"
-              by Hong-Kong born artist Kasing Lung. Inspired by Nordic fairy
-              tales, he created this universe in 2015, with characters modeled
-              after elves, fairies, and monsters.
+              Labubu is a fan meme token that aims to bridge the gap between the real-world excitement
+              of its dedicated fanbase and the vibrant, innovative community of digital tokens. As ardent supporters,
+              we seek to harness the energy and enthusiasm that surrounds Labubu IRL and translate it into the digital realm.
+              By creating a community-driven token, we hope to foster a space where fans can connect, collaborate, and celebrate
+              their shared passion.
             </p>
             <p className="font-sans text-sm text-[#1E1E1E] max-w-md mt-4">
-              From bustling Asian cities to the streets of Europe, Labubu has
-              transcended borders, uniting fans of all ages in a shared love for
-              this adorable toy.
+              Through Labubu, we aspire to create a unique and engaging experience
+              that extends beyond simply holding a digital asset.
             </p>
           </div>
           <img
@@ -134,7 +158,7 @@ export default function App() {
       </div>
 
       {/* How to $LABUBU */}
-      <section className="py-12 px-6 text-center max-w-screen-xl mx-auto">
+      <section id="how-to" className="py-12 px-6 text-center max-w-screen-xl mx-auto">
         <img
           src={HowToLabubu}
           alt="How To $Labubu"
@@ -152,7 +176,7 @@ export default function App() {
       </section>
 
       {/* Tokenomics */}
-      <section className="py-12 px-6 text-center max-w-screen-xl mx-auto">
+      <section id="tokenomics" className="py-12 px-6 text-center max-w-screen-xl mx-auto">
         <img
           src={LabubuTokenIcon}
           alt="Tokenomics"
